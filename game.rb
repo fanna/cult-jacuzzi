@@ -2,6 +2,7 @@ require 'gosu'
 require_relative './lib/player.rb'
 require_relative './lib/map.rb'
 require_relative './lib/wikipedia.rb'
+require_relative './lib/four_chan.rb'
 
 WIDTH = 640
 HEIGHT = 640
@@ -25,6 +26,7 @@ class GameWindow < Gosu::Window
     @camera_x = @camera_y = 0
 
     @wikipedia = Wikipedia.new
+    @four_chan = FourChan.new
 
     sleep 3 # TODO: Loading screen
   end
@@ -70,10 +72,12 @@ class GameWindow < Gosu::Window
     case id
     when Gosu::Button::KbEscape
       @wikipedia.clean_up
+      @four_chan.clean_up
       close
     when Gosu::Button::KbSpace
       @text_background = true
       @text = @wikipedia.random_line
+      @image = @four_chan.random_image_path
     when Gosu::Button::KbQ
       @text_background = false
     end
