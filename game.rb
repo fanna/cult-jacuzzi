@@ -4,6 +4,7 @@ require_relative './lib/wikipedia.rb'
 
 WIDTH = 640
 HEIGHT = 640
+MOVE_STEP = 3
 
 class GameWindow < Gosu::Window
   def initialize
@@ -11,10 +12,10 @@ class GameWindow < Gosu::Window
     self.caption = "Cult Jacuzzi"
     @background_image = Gosu::Image.new("./assets/floor.jpg", :tileable => true)
     @text_image = Gosu::Image.new("./assets/black.jpg")
-    @player = Player.new
-
     @pos_x = 100
     @pos_y = 100
+
+    @player = Player.new(@pos_x, @pos_y)
 
     @font = Gosu::Font.new(15)
     @text = "TEST"
@@ -23,10 +24,10 @@ class GameWindow < Gosu::Window
   end
 
   def update
-    @pos_y -= 3 if button_down? Gosu::Button::KbW
-    @pos_y+= 3 if button_down? Gosu::Button::KbS
-    @pos_x -= 3 if button_down? Gosu::Button::KbA
-    @pos_x += 3 if button_down? Gosu::Button::KbD
+    @pos_y -= MOVE_STEP if button_down? Gosu::Button::KbW
+    @pos_y += MOVE_STEP if button_down? Gosu::Button::KbS
+    @pos_x -= MOVE_STEP if button_down? Gosu::Button::KbA
+    @pos_x += MOVE_STEP if button_down? Gosu::Button::KbD
   end
 
   def draw

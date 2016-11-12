@@ -1,5 +1,7 @@
 class Player
-  def initialize
+  def initialize(x, y)
+    @x = x
+    @y = y
     @player = Gosu::Image.new("./assets/horse.png")
   end
 
