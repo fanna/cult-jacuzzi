@@ -14,8 +14,7 @@ class GameWindow < Gosu::Window
     self.caption = "Cult Jacuzzi"
     @background_image = Gosu::Image.new("./assets/space.png", :tileable => true)
     @text_image = Gosu::Image.new("./assets/black.jpg")
-    @map = Map.new("./assets/map.txt")
-    #@image = "./assets/test_player.png"
+    @map = Map.new("./assets/test_map.txt")
 
     @player = Player.new(100, 100, @map)
 
