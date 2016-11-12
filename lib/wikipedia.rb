@@ -3,14 +3,13 @@ require 'open-uri'
 require 'fileutils'
 
 class Wikipedia
-  BUFFER_LOCATION = "tmp/wikipedia_buffer"
-  SWP_LOCATION = "tmp/wikipedia_swp"
+  BUFFER_LOCATION = "assets/wikipedia_buffer"
+  SWP_LOCATION = "assets/wikipedia_swp"
 
   class BufferLockedException < StandardError; end
 
   def initialize
-    FileUtils.rm_rf("tmp")
-    FileUtils.mkdir("tmp")
+    clean_up
 
     5.times { Thread.new { push_line } }
   end
@@ -21,6 +20,11 @@ class Wikipedia
     Thread.new { push_line }
 
     line
+  end
+
+  def clean_up
+    FileUtils.rm_rf BUFFER_LOCATION
+    FileUtils.rm_rf SWP_LOCATION
   end
 
   private
