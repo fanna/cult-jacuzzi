@@ -1,4 +1,5 @@
 /vendor
+/tmp
 .bundle
 *.swp
 *.DS_store
