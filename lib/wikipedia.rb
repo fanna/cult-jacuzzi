@@ -11,7 +11,7 @@ class Wikipedia
   def initialize
     clean_up
 
-    5.times { Thread.new { push_line } }
+    8.times { Thread.new { push_line } }
   end
 
   def random_line
@@ -72,6 +72,14 @@ class Wikipedia
     end
 
     line.to_s.gsub!(/\n/, "")
+  rescue Errno::ENOENT
+    retries ||= 0
+
+    sleep(0.1)
+
+    retry if (retries += 1) < 80
+
+    return ""
   end
 
   def lock_buffer
