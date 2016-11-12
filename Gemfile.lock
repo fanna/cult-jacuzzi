@@ -6,6 +6,7 @@ GEM
     mini_portile2 (2.1.0)
     nokogiri (1.6.8.1)
       mini_portile2 (~> 2.1.0)
+    perlin_noise (0.1.2)
 
 PLATFORMS
   ruby
@@ -14,6 +15,7 @@ DEPENDENCIES
   byebug
   gosu (~> 0.10.8)
   nokogiri
+  perlin_noise
 
 BUNDLED WITH
    1.13.1
