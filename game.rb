@@ -25,6 +25,8 @@ class GameWindow < Gosu::Window
     @camera_x = @camera_y = 0
 
     @wikipedia = Wikipedia.new
+
+    sleep 3 # TODO: Loading screen
   end
 
   def update
