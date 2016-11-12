@@ -7,32 +7,70 @@ class MapGenerator
 
     file_path = "assets/test_map.txt"
 
-    blank_level(file_path, x, y)
+    level = filled_level(x, y)
+
+    save_level(level, file_path)
   end
 
-  def self.noise(max, step, limit)
+  def self.save_level(level, path)
+    File.open(path, 'w') do |file|
+      level.each do |line|
+        line_string = ""
+        line.each do |field|
+          line_string << field
+        end
+        file.puts(line_string)
+      end
+    end
+  end
+
+  def self.noise(x, y, limit = 0.62)
     n2d = Perlin::Noise.new 2
 
-    0.step(max, step) do |x|
-      line = ""
-      0.step(max, step) do |y|
-        val = n2d[x, y]
-        if val > limit
-          line += "#"
+    max = 10
+
+    x -= 1
+    y -= 1
+
+    map = []
+    0.step(max, max / y.to_f) do |y|
+      line = []
+      0.step(max, max / x.to_f) do |x|
+        if n2d[x, y] > limit
+          line << "#"
         else
-          line += "."
+          line << "."
         end
       end
-      puts line
+      map << line
     end
+    map
   end
 
-  def self.blank_level(path, x, y)
-    File.open(path, 'w') { |file| file.write("#" * x + "\n") }
-    (y - 2).times do
-      File.open(path, 'a') { |file| file.write("#" + "." * (x-2) + "#" + "\n") }
+  def self.filled_level(x, y)
+    level = noise(x, y)
+
+    framed_level = []
+    level.each_with_index do |line, index_y|
+      framed_line = []
+      line.each_with_index do |field, index_x|
+        if index_x == 0 || index_y == 0 || index_x == x - 1 || index_y == y - 1
+          framed_line << "#"
+        else
+          framed_line << level[index_y][index_x]
+        end
+      end
+      framed_level << framed_line
     end
-    File.open(path, 'a') { |file| file.write("#" * x) }
-    File.open(path, 'a') { |file| file.write("#" * x) }
+
+    framed_level
+  end
+
+  def self.blank_level(x, y)
+    level = []
+    level << ["#"] * x
+    (y - 2).times { level << ["#"] +  ["."] * (x-2) + ["#"] }
+    level << ["#"] * x
+    level
   end
 end
