@@ -67,6 +67,7 @@ class GameWindow < Gosu::Window
   def button_down(id)
     case id
     when Gosu::Button::KbEscape
+      @wikipedia.clean_up
       close
     when Gosu::Button::KbSpace
       @text_background = true
