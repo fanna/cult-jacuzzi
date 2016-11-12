@@ -15,6 +15,7 @@ class GameWindow < Gosu::Window
     @background_image = Gosu::Image.new("./assets/space.png", :tileable => true)
     @text_image = Gosu::Image.new("./assets/black.jpg")
     @map = Map.new("./assets/map.txt")
+    #@image = "./assets/test_player.png"
 
     @player = Player.new(100, 100, @map)
 
@@ -54,7 +55,9 @@ class GameWindow < Gosu::Window
 
     if @text_background == true
       @text_image.draw(10, 10, 0)
+      @chan_image = Gosu::Image.new(@image)
       @font.draw(@text, 20, 20, 3, 1.0, 1.0, 0xffff00ff)
+      @chan_image.draw(10, 350, 3)
     end
   end
 
@@ -77,7 +80,7 @@ class GameWindow < Gosu::Window
     when Gosu::Button::KbSpace
       @text_background = true
       @text = @wikipedia.random_line
-      @image = @four_chan.random_image_path
+      @image = "./" + @four_chan.random_image_path
     when Gosu::Button::KbQ
       @text_background = false
     end
