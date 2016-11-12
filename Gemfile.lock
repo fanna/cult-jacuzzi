@@ -3,6 +3,9 @@ GEM
   specs:
     byebug (9.0.6)
     gosu (0.10.8)
+    mini_portile2 (2.1.0)
+    nokogiri (1.6.8.1)
+      mini_portile2 (~> 2.1.0)
 
 PLATFORMS
   ruby
@@ -10,6 +13,7 @@ PLATFORMS
 DEPENDENCIES
   byebug
   gosu (~> 0.10.8)
+  nokogiri
 
 BUNDLED WITH
    1.13.1
