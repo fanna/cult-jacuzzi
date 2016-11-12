@@ -12,7 +12,7 @@ class Wikipedia
     FileUtils.rm_rf("tmp")
     FileUtils.mkdir("tmp")
 
-    3.times { Thread.new { push_line } }
+    5.times { Thread.new { push_line } }
   end
 
   def random_line
@@ -56,17 +56,18 @@ class Wikipedia
   end
 
   def pop_line
-    lock_buffer do
-      lines = File.read(BUFFER_LOCATION).lines
+    lines = File.read(BUFFER_LOCATION).lines
+    line = lines.shift
 
-      line = lines.shift
-
-      File.open(BUFFER_LOCATION, "w") do |file|
-        lines.each { |line| file.puts(line) }
+    Thread.new do
+      lock_buffer do
+        File.open(BUFFER_LOCATION, "w") do |file|
+          lines.each { |line| file.puts(line) }
+        end
       end
-
-      line.gsub!(/\n/, "")
     end
+
+    line.to_s.gsub!(/\n/, "")
   end
 
   def lock_buffer
