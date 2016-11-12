@@ -5,13 +5,13 @@ require_relative './lib/wikipedia.rb'
 
 WIDTH = 640
 HEIGHT = 640
-MOVE_STEP = 3
+MOVE_STEP = 5
 
 class GameWindow < Gosu::Window
   def initialize
     super WIDTH, HEIGHT
     self.caption = "Cult Jacuzzi"
-    @background_image = Gosu::Image.new("./assets/floor.jpg", :tileable => true)
+    @background_image = Gosu::Image.new("./assets/space.png", :tileable => true)
     @text_image = Gosu::Image.new("./assets/black.jpg")
     @map = Map.new("./assets/map.txt")
 
@@ -39,7 +39,7 @@ class GameWindow < Gosu::Window
   end
 
   def draw
-    @background_image.draw(0, 0, 0)
+    draw_rotating_background
 
     Gosu::translate(-@camera_x, -@camera_y) do
       @map.draw
@@ -49,6 +49,16 @@ class GameWindow < Gosu::Window
     if @text_background == true
       @text_image.draw(10, 10, 0)
       @font.draw(@text, 20, 20, 3, 1.0, 1.0, 0xffff00ff)
+    end
+  end
+
+  def draw_rotating_background
+    angle = Gosu::milliseconds / 50.0
+    scale = (Gosu::milliseconds % 1000) / 1000.0
+
+    [1, 0].each do |extra_scale|
+      @background_image.draw_rot WIDTH * 0.5, HEIGHT * 0.75, 0, angle, 0.5, 0.5,
+        scale + extra_scale, scale + extra_scale
     end
   end
 
