@@ -23,6 +23,8 @@ class GameWindow < Gosu::Window
     @text_background = false
 
     @camera_x = @camera_y = 0
+
+    @wikipedia = Wikipedia.new
   end
 
   def update
@@ -68,7 +70,7 @@ class GameWindow < Gosu::Window
       close
     when Gosu::Button::KbSpace
       @text_background = true
-      @text = Wikipedia.random_text
+      @text = @wikipedia.random_line
     when Gosu::Button::KbQ
       @text_background = false
     end
