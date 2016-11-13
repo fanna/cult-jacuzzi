@@ -58,13 +58,14 @@ class GameWindow < Gosu::Window
     move_x -= MOVE_STEP if button_down? Gosu::Button::KbA
     move_x += MOVE_STEP if button_down? Gosu::Button::KbD
     @player.update(move_x, move_y)
-    @player.collect_item(@map.items)
+    @player.collect_item(@collectible_items)
 
     if @player.collected_item == 1
       @text_background = true
       @text = @wikipedia.random_line
       @image = "./" + @four_chan.random_image_path
       @player.collected_item = 0
+      @collectible_items << @level.collectible_items(1).first
     else
       nil
     end
