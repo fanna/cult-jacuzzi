@@ -94,7 +94,8 @@ class GameWindow < Gosu::Window
         line_y += 10
       end
 
-      @chan_image.draw(10, 350, 3)
+      @font.draw("This is an image of it:",40, 120,  3, 1.0, 1.0, 0xff_000000)
+      @chan_image.draw(30, 170, 3)
     end
 
     if @menu_state == true
