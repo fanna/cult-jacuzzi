@@ -55,8 +55,8 @@ class GameWindow < Gosu::Window
       nil
     end
 
-    @camera_x = [[@player.x - WIDTH / 2, 0].max, @map.width * 13 - WIDTH].min
-    @camera_y = [[@player.y - HEIGHT / 2, 0].max, @map.height * 13 - HEIGHT].min
+    @camera_x = [[@player.x - WIDTH / 2, 0].max, @map.width * 18 - WIDTH].min
+    @camera_y = [[@player.y - HEIGHT / 2, 0].max, @map.height * 18 - HEIGHT].min
   end
 
   def draw
