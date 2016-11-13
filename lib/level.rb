@@ -4,6 +4,8 @@ class Level
   def initialize(map)
     @map = map
     @processing_map = Marshal.load(Marshal.dump(map))
+
+    paint_regions
   end
 
   def regions
@@ -18,6 +20,18 @@ class Level
       end
     end
     @regions
+  end
+
+  def paint_regions
+    material_regions = regions.select { |region| region[:value] != "." }
+
+    count = material_regions.count
+
+    material_regions.sample((count / 2).round).each do |region|
+      region[:cells].each do |x, y|
+        @map[y][x] = "\""
+      end
+    end
   end
 
   def blank_region
