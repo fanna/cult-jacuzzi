@@ -19,9 +19,6 @@ class Map
           Tiles::Grass
         when '#'
           Tiles::Earth
-        when '$'
-          @items.push(CollectibleItem.new(item_img, x * 20 + 10, y * 20 + 10))
-          nil
         else
           nil
         end
