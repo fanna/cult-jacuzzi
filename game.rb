@@ -24,7 +24,7 @@ class GameWindow < Gosu::Window
 
     @player = Player.new(100, 100, @map)
 
-    @font = Gosu::Font.new(15)
+    @font = Gosu::Font.new(15, :name => "./assets/font.ttf")
     @text = "TEST"
 
     @text_background = false
@@ -84,7 +84,7 @@ class GameWindow < Gosu::Window
     if @text_background == true
       @text_image.draw(10, 10, 0)
       @chan_image = Gosu::Image.new(@image)
-      @font.draw(@text, 20, 20, 3, 1.0, 1.0, 0xffff00ff)
+      @font.draw(@text, 20, 20, 3, 1.0, 1.0, 0xff_000000)
       @chan_image.draw(10, 350, 3)
     end
 
