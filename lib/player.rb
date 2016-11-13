@@ -7,7 +7,7 @@ class Player
     @y = y
     @dir = :left
     @map = map
-    @standing, @walk_left_right1, @walk_left_right2 = *Gosu::Image.load_tiles("./assets/test_player.png", 50, 50)
+    @standing, @walk_left_right1, @walk_left_right2 = *Gosu::Image.load_tiles("./assets/test_player.png", 13, 13)
 
     @cur_image = @standing
     @collected_item = 0
@@ -15,22 +15,22 @@ class Player
 
   def draw
     if @dir == :left then
-      offs_x = -25
+      offs_x = -8
       factor = 1.0
     else
-      offs_x = 25
+      offs_x = 8
       factor = -1.0
     end
-    @cur_image.draw(@x + offs_x, @y - 49, 0, factor, 1.0)
+    @cur_image.draw(@x + offs_x, @y - 12, 0, factor, 1.0)
   end
 
   def collide(offs_x, offs_y)
     not @map.solid?(@x + offs_x, @y + offs_y) and
-      not @map.solid?(@x + offs_x, @y + offs_y - 45)
+      not @map.solid?(@x + offs_x, @y + offs_y - 12)
   end
 
   def collect_item(items)
-    if items.reject! { |item| Gosu::distance(@x, @y, item.x, item.y) < 35} then
+    if items.reject! { |item| Gosu::distance(@x, @y, item.x, item.y) < 10} then
       @collected_item = 1
     end
   end
