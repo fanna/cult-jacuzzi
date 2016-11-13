@@ -26,6 +26,7 @@ class GameWindow < Gosu::Window
     @player = Player.new(spawn_x, spawn_y, @map)
 
     @font = Gosu::Font.new(15, :name => "./assets/font.ttf")
+    @font_warn = Gosu::Font.new(20, :name => "./assets/font.ttf")
     @text = "TEST"
 
     @text_background = false
@@ -111,6 +112,10 @@ class GameWindow < Gosu::Window
 
     if @warning > 10 && @warning_state == true
       @warning_menu.draw(0, 0, 0)
+    end
+
+    if @sfw == false
+      @font.draw("WARNING! Mature content activated!",10, 10,  3, 1.0, 1.0, 0xff_ff0000)
     end
   end
 
