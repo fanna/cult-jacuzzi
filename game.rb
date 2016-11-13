@@ -5,6 +5,7 @@ require_relative './lib/wikipedia.rb'
 require_relative './lib/four_chan.rb'
 require_relative './lib/map_generator'
 require_relative './lib/collectible_item.rb'
+require_relative './lib/level.rb'
 
 WIDTH = 640
 HEIGHT = 640
