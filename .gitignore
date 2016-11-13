@@ -2,5 +2,5 @@
 .bundle
 *.swp
 *.DS_store
-assets/test_map.txt
+./assets/test_map.txt
 
