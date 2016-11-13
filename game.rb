@@ -2,7 +2,8 @@ require 'gosu'
 require_relative './lib/player.rb'
 require_relative './lib/map.rb'
 require_relative './lib/wikipedia.rb'
-require_relative './lib/four_chan.rb'
+require_relative './lib/four_chan_comments.rb'
+require_relative './lib/four_chan_images.rb'
 require_relative './lib/map_generator'
 require_relative './lib/collectible_item.rb'
 require_relative './lib/level.rb'
@@ -33,7 +34,8 @@ class GameWindow < Gosu::Window
     @camera_x = @camera_y = 0
 
     @wikipedia = Wikipedia.new
-    @four_chan = FourChan.new
+    @four_chan_comments = FourChanComments.new
+    @four_chan_images = FourChanImages.new
 
     @music = Gosu::Song.new("./assets/music.mp3") rescue nil
 
@@ -66,7 +68,8 @@ class GameWindow < Gosu::Window
     if @player.collected_item == 1
       @text_background = true
       @text = @wikipedia.random_line
-      @image = "./" + @four_chan.random_image_path(@sfw)
+      @comment_text = @four_chan_comments.random_line(@sfw)
+      @image = "./" + @four_chan_images.random_image_path(@sfw)
       @player.collected_item = 0
       @collectible_items << @level.collectible_items(1).first
     else
@@ -93,16 +96,24 @@ class GameWindow < Gosu::Window
 
     if @text_background == true
       @text_image.draw(10, 10, 0)
-      @chan_image = Gosu::Image.new(@image)
+      @chan_image = Gosu::Image.new(@image) rescue nil
 
       line_y = 20
-      @text.scan(/.{1,78}/).each do |line|
+      @text.scan(/.{1,78}/).first(3).each do |line|
         @font.draw(line, 30, line_y, 3, 1.0, 1.0, 0xff_000000) rescue nil
         line_y += 10
       end
 
-      @font.draw("This is an image of it:",40, 120,  3, 1.0, 1.0, 0xff_000000)
-      @chan_image.draw(30, 170, 3)
+      @font.draw("That's why they say:",40, 70,  3, 1.0, 1.0, 0xff_000000)
+
+      line_y = 90
+      @comment_text.scan(/.{1,78}/).first(2).each do |line|
+        @font.draw(line, 30, line_y, 3, 1.0, 1.0, 0xff_000000) rescue nil
+        line_y += 10
+      end
+
+      @font.draw("This is an image of it:",40, 130,  3, 1.0, 1.0, 0xff_000000)
+      @chan_image.draw(30, 160, 3) rescue nil
     end
 
     if @menu_state == true
@@ -128,7 +139,8 @@ class GameWindow < Gosu::Window
     case id
     when Gosu::Button::KbEscape
       @wikipedia.clean_up
-      @four_chan.clean_up
+      @four_chan_images.clean_up
+      @four_chan_comments.clean_up
       close
     when Gosu::Button::KbQ
       @text_background = false

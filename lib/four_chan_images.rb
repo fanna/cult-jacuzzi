@@ -2,7 +2,7 @@ require 'nokogiri'
 require 'open-uri'
 require 'fileutils'
 
-class FourChan
+class FourChanImages
   BASE_URL = "http://boards.4chan.org"
   SFW_BOARDS = ["x"]
   NSFW_BOARDS = ["b", "pol", "soc", "s4s", "a"]
@@ -18,7 +18,9 @@ class FourChan
     @save_lock = Mutex.new
     @load_lock = Mutex.new
 
-    10.times { Thread.new { download_random_image } }
+    @sfw = true
+
+    20.times { Thread.new { download_random_image } }
   end
 
   def random_image_path(sfw)
