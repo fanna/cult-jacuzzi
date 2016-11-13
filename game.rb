@@ -22,7 +22,8 @@ class GameWindow < Gosu::Window
     @text_image = Gosu::Image.new("./assets/black.jpg")
     @map = Map.new("./assets/test_map.txt")
 
-    @player = Player.new(100, 100, @map)
+    spawn_x, spawn_y = @level.spawn_point
+    @player = Player.new(spawn_x, spawn_y, @map)
 
     @font = Gosu::Font.new(15, :name => "./assets/font.ttf")
     @text = "TEST"

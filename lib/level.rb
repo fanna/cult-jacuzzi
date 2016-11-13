@@ -30,6 +30,21 @@ class Level
     @blank_region = blank_regions[max_index]
   end
 
+  def spawn_point
+    x, y = blank_region[:cells].find do |cell|
+      x, y = cell
+
+      @map[y - 1][x - 1] == "." && @map[y - 1][x] == "." && @map[y - 1][x + 1] == "." &&
+        @map[y][x - 1] == "." && @map[y][x] == "." && @map[y][x + 1] == "." &&
+        @map[y + 1][x - 1] == "." && @map[y + 1][x] == "." && @map[y + 1][x + 1] == "."
+    end
+
+    x = x * 18 + 7
+    y = y * 18 + 20
+
+    [x, y]
+  end
+
   def collectible_items(count = 30)
     item_image = Gosu::Image.new("assets/gem.png")
 
