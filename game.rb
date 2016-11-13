@@ -103,7 +103,7 @@ class GameWindow < Gosu::Window
       @chan_image = Gosu::Image.new(@image) rescue nil
 
       line_y = 20
-      @text.scan(/.{1,78}/).first(3).each do |line|
+      @text.scan(/.{1,60}/).first(3).each do |line|
         @font.draw(line, 30, line_y, 3, 1.0, 1.0, 0xff_000000) rescue nil
         line_y += 10
       end
@@ -111,7 +111,7 @@ class GameWindow < Gosu::Window
       @font.draw("That's why they say:",40, 70,  3, 1.0, 1.0, 0xff_000000)
 
       line_y = 90
-      @comment_text.scan(/.{1,78}/).first(2).each do |line|
+      @comment_text.scan(/.{1,60}/).first(2).each do |line|
         @font.draw(line, 30, line_y, 3, 1.0, 1.0, 0xff_000000) rescue nil
         line_y += 10
       end
