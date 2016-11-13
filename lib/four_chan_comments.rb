@@ -57,7 +57,7 @@ class FourChanComments
     result = clean_string(result)
 
     raise if result == ""
-    raise if result.length < 150
+    raise if result.length < 60
 
     result
   rescue
