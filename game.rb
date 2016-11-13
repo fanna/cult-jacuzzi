@@ -37,6 +37,14 @@ class GameWindow < Gosu::Window
 
     sleep 3 # TODO: Loading screen
     @music.play(true)
+
+    @menu_state = true
+
+    @main_menu= Gosu::Image.new("./assets/main_menu.png")
+    @warning_menu= Gosu::Image.new("./assets/warning.png")
+
+    @warning = 0
+    @warning_state = true
   end
 
   def update
@@ -58,6 +66,8 @@ class GameWindow < Gosu::Window
       nil
     end
 
+    @warning = Gosu::milliseconds
+
     @camera_x = [[@player.x - WIDTH / 2, 0].max, @map.width * 18 - WIDTH].min
     @camera_y = [[@player.y - HEIGHT / 2, 0].max, @map.height * 18 - HEIGHT].min
   end
@@ -75,6 +85,14 @@ class GameWindow < Gosu::Window
       @chan_image = Gosu::Image.new(@image)
       @font.draw(@text, 20, 20, 3, 1.0, 1.0, 0xffff00ff)
       @chan_image.draw(10, 350, 3)
+    end
+
+    if @menu_state == true
+      @main_menu.draw(0, 0, 0)
+    end
+
+    if @warning > 10 && @warning_state == true
+      @warning_menu.draw(0, 0, 0)
     end
   end
 
@@ -96,6 +114,10 @@ class GameWindow < Gosu::Window
       close
     when Gosu::Button::KbQ
       @text_background = false
+    when Gosu::Button::KbG
+      @menu_state = false
+    when Gosu::Button::KbTab
+      @warning_state = false
     end
   end
 end
