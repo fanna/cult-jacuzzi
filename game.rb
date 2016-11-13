@@ -14,7 +14,7 @@ MOVE_STEP = 2
 
 class GameWindow < Gosu::Window
   def initialize
-    super WIDTH, HEIGHT, :fullscreen => false
+    super WIDTH, HEIGHT, :fullscreen => true
     self.caption = "Cult Jacuzzi"
 
     @level = MapGenerator.generate
