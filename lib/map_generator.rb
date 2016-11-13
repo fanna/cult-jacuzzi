@@ -10,6 +10,8 @@ class MapGenerator
     level = filled_level(x, y)
 
     save_level(level.map, file_path)
+
+    level
   end
 
   def self.save_level(level, path)

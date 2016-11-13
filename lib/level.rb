@@ -20,6 +20,24 @@ class Level
     @regions
   end
 
+  def blank_region
+    return @blank_region if @blank_region
+
+    blank_regions = regions.select { |region| region[:value] == "." }
+
+    max_index = blank_regions.map { |region| region[:cells].count }.each_with_index.max[1]
+
+    @blank_region = blank_regions[max_index]
+  end
+
+  def collectible_items(count = 30)
+    item_image = Gosu::Image.new("assets/gem.png")
+
+    blank_region[:cells].sample(30).map do |coords|
+      CollectibleItem.new(item_image, coords[0] * 18 + 5, coords[1] * 18 + 5)
+    end
+  end
+
   private
 
   def process_neighbours(x, y, value)
