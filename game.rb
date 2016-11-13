@@ -36,7 +36,7 @@ class GameWindow < Gosu::Window
 
     @music = Gosu::Song.new("./assets/music.mp3") rescue nil
 
-    sleep 3 # TODO: Loading screen
+    sleep 3
     @music.play(true) rescue nil
 
     @menu_state = true
@@ -84,7 +84,13 @@ class GameWindow < Gosu::Window
     if @text_background == true
       @text_image.draw(10, 10, 0)
       @chan_image = Gosu::Image.new(@image)
-      @font.draw(@text, 20, 20, 3, 1.0, 1.0, 0xff_000000)
+
+      line_y = 20
+      @text.scan(/.{1,78}/).each do |line|
+        @font.draw(line, 30, line_y, 3, 1.0, 1.0, 0xff_000000)
+        line_y += 10
+      end
+
       @chan_image.draw(10, 350, 3)
     end
 
