@@ -7,7 +7,7 @@ class Player
     @y = y
     @dir = :left
     @map = map
-    @standing, @walk_left_right1, @walk_left_right2 = *Gosu::Image.load_tiles("./assets/test_player.png", 23, 23)
+    @standing, @walk_left_right1, @walk_left_right2 = *Gosu::Image.load_tiles("./assets/player.png", 23, 23)
 
     @cur_image = @standing
     @collected_item = 0
