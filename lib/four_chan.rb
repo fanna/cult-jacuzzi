@@ -18,7 +18,7 @@ class FourChan
     @save_lock = Mutex.new
     @load_lock = Mutex.new
 
-    3.times { Thread.new { download_random_image } }
+    10.times { Thread.new { download_random_image } }
   end
 
   def random_image_path(sfw)
