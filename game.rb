@@ -33,7 +33,10 @@ class GameWindow < Gosu::Window
     @wikipedia = Wikipedia.new
     @four_chan = FourChan.new
 
+    @music = Gosu::Song.new("./assets/music.mp3")
+
     sleep 3 # TODO: Loading screen
+    @music.play(true)
   end
 
   def update
