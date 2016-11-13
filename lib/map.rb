@@ -4,7 +4,7 @@ class Map
   attr_reader :width, :height, :items
 
   def initialize(filename)
-    @tileset = Gosu::Image.load_tiles("./assets/tileset.png", 15, 15, :tileable => true)
+    @tileset = Gosu::Image.load_tiles("./assets/tileset.png", 20, 20, :tileable => true)
 
     item_img = Gosu::Image.new("./assets/gem.png")
     @items = []
@@ -20,7 +20,7 @@ class Map
         when '#'
           Tiles::Earth
         when '$'
-          @items.push(CollectibleItem.new(item_img, x * 13 + 7, y * 13 + 7))
+          @items.push(CollectibleItem.new(item_img, x * 20 + 10, y * 20 + 10))
           nil
         else
           nil
@@ -34,7 +34,7 @@ class Map
       @width.times do |x|
         tile = @tiles[x][y]
         if tile
-          @tileset[tile].draw(x * 13 - 5, y * 13 - 5, 0)
+          @tileset[tile].draw(x * 18 - 5, y * 18 - 5, 0)
         end
       end
     end
@@ -42,6 +42,6 @@ class Map
   end
 
   def solid?(x, y)
-    y < 0 || @tiles[x / 13][y / 13]
+    y < 0 || @tiles[x / 18][y / 18]
   end
 end
