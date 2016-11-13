@@ -9,7 +9,7 @@ class MapGenerator
 
     level = filled_level(x, y)
 
-    save_level(level, file_path)
+    save_level(level.map, file_path)
   end
 
   def self.save_level(level, path)
@@ -48,7 +48,16 @@ class MapGenerator
   end
 
   def self.filled_level(x, y)
-    level = noise(x, y)
+    noise_map = noise(x, y)
+
+    framed_map = framed_level(noise_map)
+
+    Level.new(framed_map)
+  end
+
+  def self.framed_level(level)
+    x = level[0].count
+    y = level.count
 
     framed_level = []
     level.each_with_index do |line, index_y|
