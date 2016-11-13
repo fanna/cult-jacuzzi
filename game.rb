@@ -38,7 +38,7 @@ class GameWindow < Gosu::Window
     @four_chan_comments = FourChanComments.new
     @four_chan_images = FourChanImages.new
 
-    @music = Gosu::Song.new("./assets/music.mp3") rescue nil
+    @music = Gosu::Song.new("./assets/music.wav") rescue nil
 
     sleep 3
     @music.play(true) rescue nil
