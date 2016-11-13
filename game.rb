@@ -8,11 +8,11 @@ require_relative './lib/collectible_item.rb'
 
 WIDTH = 640
 HEIGHT = 640
-MOVE_STEP = 5
+MOVE_STEP = 2
 
 class GameWindow < Gosu::Window
   def initialize
-    super WIDTH, HEIGHT
+    super WIDTH, HEIGHT, :fullscreen => false
     self.caption = "Cult Jacuzzi"
 
     MapGenerator.generate
@@ -55,8 +55,8 @@ class GameWindow < Gosu::Window
       nil
     end
 
-    @camera_x = [[@player.x - WIDTH / 2, 0].max, @map.width * 50 - WIDTH].min
-    @camera_y = [[@player.y - HEIGHT / 2, 0].max, @map.height * 50 - HEIGHT].min
+    @camera_x = [[@player.x - WIDTH / 2, 0].max, @map.width * 13 - WIDTH].min
+    @camera_y = [[@player.y - HEIGHT / 2, 0].max, @map.height * 13 - HEIGHT].min
   end
 
   def draw

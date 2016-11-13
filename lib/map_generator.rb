@@ -2,8 +2,8 @@ require "perlin_noise"
 
 class MapGenerator
   def self.generate
-    x = Random.new.rand(30..70)
-    y = Random.new.rand(30..70)
+    x = Random.new.rand(50..90)
+    y = Random.new.rand(50..90)
 
     file_path = "assets/test_map.txt"
 
