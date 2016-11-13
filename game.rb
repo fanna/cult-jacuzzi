@@ -48,6 +48,8 @@ class GameWindow < Gosu::Window
     @warning_state = true
 
     @collectible_items = @level.collectible_items
+
+    @sfw = true
   end
 
   def update
@@ -63,7 +65,7 @@ class GameWindow < Gosu::Window
     if @player.collected_item == 1
       @text_background = true
       @text = @wikipedia.random_line
-      @image = "./" + @four_chan.random_image_path
+      @image = "./" + @four_chan.random_image_path(@sfw)
       @player.collected_item = 0
       @collectible_items << @level.collectible_items(1).first
     else
@@ -130,6 +132,8 @@ class GameWindow < Gosu::Window
       @text_background = false
     when Gosu::Button::KbG
       @menu_state = false
+    when Gosu::Button::KbM
+      @sfw = !@sfw
     when Gosu::Button::KbTab
       @warning_state = false
     end

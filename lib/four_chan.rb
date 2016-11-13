@@ -4,7 +4,8 @@ require 'fileutils'
 
 class FourChan
   BASE_URL = "http://boards.4chan.org"
-  BOARDS = ["b", "x", "a", "pol", "soc", "s4s"]
+  SFW_BOARDS = ["x"]
+  NSFW_BOARDS = ["b", "pol", "soc", "s4s", "a"]
   BASE_PATH = "assets"
 
   class NotUserImageException < StandardError; end
@@ -20,7 +21,9 @@ class FourChan
     3.times { Thread.new { download_random_image } }
   end
 
-  def random_image_path
+  def random_image_path(sfw)
+    @sfw = sfw
+
     Thread.new { download_random_image }
 
     image_name = @load_lock.synchronize do
@@ -72,7 +75,9 @@ class FourChan
   end
 
   def random_page_url
-    board = BOARDS.sample
+    boards = SFW_BOARDS
+    boards += NSFW_BOARDS unless @sfw
+    board = boards.sample
     page = Random.rand(10)
 
     url = "#{BASE_URL}/#{board}/#{page}"
