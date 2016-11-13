@@ -60,7 +60,7 @@ class GameWindow < Gosu::Window
   end
 
   def draw
-    draw_rotating_background
+    @background_image.draw(0, 0, 0)
 
     Gosu::translate(-@camera_x, -@camera_y) do
       @map.draw
