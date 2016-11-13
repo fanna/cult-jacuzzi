@@ -87,13 +87,17 @@ class GameWindow < Gosu::Window
       @player.draw
     end
 
+    unless @menu_state
+      @collectible_items.each { |item| item.draw(@camera_x, @camera_y) }
+    end
+
     if @text_background == true
       @text_image.draw(10, 10, 0)
       @chan_image = Gosu::Image.new(@image)
 
       line_y = 20
       @text.scan(/.{1,78}/).each do |line|
-        @font.draw(line, 30, line_y, 3, 1.0, 1.0, 0xff_000000)
+        @font.draw(line, 30, line_y, 3, 1.0, 1.0, 0xff_000000) rescue nil
         line_y += 10
       end
 
@@ -102,10 +106,6 @@ class GameWindow < Gosu::Window
 
     if @menu_state == true
       @main_menu.draw(0, 0, 0)
-    end
-
-    unless @text_background || @menu_state
-      @collectible_items.each { |item| item.draw(@camera_x, @camera_y) }
     end
 
     if @warning > 10 && @warning_state == true
