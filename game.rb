@@ -16,7 +16,7 @@ class GameWindow < Gosu::Window
     super WIDTH, HEIGHT, :fullscreen => false
     self.caption = "Cult Jacuzzi"
 
-    MapGenerator.generate
+    @level = MapGenerator.generate
 
     @background_image = Gosu::Image.new("./assets/space.png", :tileable => true)
     @text_image = Gosu::Image.new("./assets/black.jpg")
@@ -46,6 +46,8 @@ class GameWindow < Gosu::Window
 
     @warning = 0
     @warning_state = true
+
+    @collectible_items = @level.collectible_items
   end
 
   def update
@@ -96,6 +98,10 @@ class GameWindow < Gosu::Window
 
     if @menu_state == true
       @main_menu.draw(0, 0, 0)
+    end
+
+    unless @text_background || @menu_state
+      @collectible_items.each { |item| item.draw(@camera_x, @camera_y) }
     end
 
     if @warning > 10 && @warning_state == true
