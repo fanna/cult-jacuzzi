@@ -1,5 +1,6 @@
 class Player
-  attr_reader :x, :y
+  attr_reader :x, :y, :collected_item
+  attr_writer :collected_item
 
   def initialize(x, y, map)
     @x = x
@@ -9,6 +10,7 @@ class Player
     @standing, @walk_left_right1, @walk_left_right2 = *Gosu::Image.load_tiles("./assets/test_player.png", 50, 50)
 
     @cur_image = @standing
+    @collected_item = 0
   end
 
   def draw
@@ -25,6 +27,12 @@ class Player
   def collide(offs_x, offs_y)
     not @map.solid?(@x + offs_x, @y + offs_y) and
       not @map.solid?(@x + offs_x, @y + offs_y - 45)
+  end
+
+  def collect_item(items)
+    if items.reject! { |item| Gosu::distance(@x, @y, item.x, item.y) < 35} then
+      @collected_item = 1
+    end
   end
 
   def update(move_x, move_y)
