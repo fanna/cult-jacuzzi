@@ -47,6 +47,7 @@ class GameWindow < Gosu::Window
 
     @main_menu= Gosu::Image.new("./assets/main_menu.png")
     @warning_menu= Gosu::Image.new("./assets/warning.png")
+    @controls_menu = Gosu::Image.new("./assets/controls.png")
 
     @warning = 0
     @warning_state = true
@@ -54,6 +55,8 @@ class GameWindow < Gosu::Window
     @collectible_items = @level.collectible_items
 
     @sfw = true
+
+    @controls = true
   end
 
   def update
@@ -128,6 +131,10 @@ class GameWindow < Gosu::Window
     if @sfw == false
       @font.draw("WARNING! Mature content activated!",10, 10,  3, 1.0, 1.0, 0xff_ff0000)
     end
+
+    if @controls == true && @warning > 10
+      @controls_menu.draw(0, 0, 0)
+    end
   end
 
   def draw_rotating_background
@@ -155,6 +162,8 @@ class GameWindow < Gosu::Window
       @sfw = !@sfw
     when Gosu::Button::KbTab
       @warning_state = false
+    when Gosu::Button::KbC
+      @controls = !@controls
     end
   end
 end
