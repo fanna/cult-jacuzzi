@@ -1,10 +1,13 @@
 require_relative './tiles.rb'
 
 class Map
-  attr_reader :width, :height
+  attr_reader :width, :height, :items
 
   def initialize(filename)
     @tileset = Gosu::Image.load_tiles("./assets/tileset.png", 60, 60, :tileable => true)
+
+    item_img = Gosu::Image.new("./assets/gem.png")
+    @items = []
 
     lines = File.readlines(filename).map { |line| line.chomp }
     @height = lines.size
@@ -16,6 +19,9 @@ class Map
           Tiles::Grass
         when '#'
           Tiles::Earth
+        when '$'
+          @items.push(CollectibleItem.new(item_img, x * 50 + 25, y * 50 + 25))
+          nil
         else
           nil
         end
@@ -32,6 +38,7 @@ class Map
         end
       end
     end
+    @items.each { |c| c.draw }
   end
 
   def solid?(x, y)

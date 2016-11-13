@@ -4,6 +4,7 @@ require_relative './lib/map.rb'
 require_relative './lib/wikipedia.rb'
 require_relative './lib/four_chan.rb'
 require_relative './lib/map_generator'
+require_relative './lib/collectible_item.rb'
 
 WIDTH = 640
 HEIGHT = 640
@@ -43,6 +44,16 @@ class GameWindow < Gosu::Window
     move_x -= MOVE_STEP if button_down? Gosu::Button::KbA
     move_x += MOVE_STEP if button_down? Gosu::Button::KbD
     @player.update(move_x, move_y)
+    @player.collect_item(@map.items)
+
+    if @player.collected_item == 1
+      @text_background = true
+      @text = @wikipedia.random_line
+      @image = "./" + @four_chan.random_image_path
+      @player.collected_item = 0
+    else
+      nil
+    end
 
     @camera_x = [[@player.x - WIDTH / 2, 0].max, @map.width * 50 - WIDTH].min
     @camera_y = [[@player.y - HEIGHT / 2, 0].max, @map.height * 50 - HEIGHT].min
@@ -80,10 +91,6 @@ class GameWindow < Gosu::Window
       @wikipedia.clean_up
       @four_chan.clean_up
       close
-    when Gosu::Button::KbSpace
-      @text_background = true
-      @text = @wikipedia.random_line
-      @image = "./" + @four_chan.random_image_path
     when Gosu::Button::KbQ
       @text_background = false
     end
