@@ -1,6 +1,7 @@
 require 'nokogiri'
 require 'open-uri'
 require 'fileutils'
+require 'certified'
 
 class FourChanComments
   BUFFER_LOCATION = "assets/four_chan_buffer"

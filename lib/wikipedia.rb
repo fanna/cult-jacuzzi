@@ -1,6 +1,7 @@
 require 'nokogiri'
 require 'open-uri'
 require 'fileutils'
+require 'certified'
 
 class Wikipedia
   BUFFER_LOCATION = "assets/wikipedia_buffer"
