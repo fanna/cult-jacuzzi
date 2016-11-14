@@ -14,3 +14,10 @@ Music by [+](https://archive.org/details/Blacklab-Black_Forest)
 bundle install --path vendor/bundle
 bundle exec ruby game.rb
 ```
+### OSX
+
+On macOS(OSX) before running the setup commands install SDL2 library
+
+```
+brew install sdl2
+```
